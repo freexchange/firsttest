@@ -251,4 +251,8 @@ public class WebsiteTests extends TestSettings {
         }
         driver.get(driver.findElement(By.cssSelector("._2yau")).getAttribute("href"));
     }
+    @Test
+    public void siteAddress() {
+        
+    }
 }
