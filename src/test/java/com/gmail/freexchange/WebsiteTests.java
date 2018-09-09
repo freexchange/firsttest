@@ -253,6 +253,111 @@ public class WebsiteTests extends TestSettings {
     }
     @Test
     public void siteAddress() {
-        
+        System.out.println((char)13 + "=======siteAddress========");
+        driver.get(baseURL);
+        String actualAddress = driver.findElement(By
+                .cssSelector("#colophon > div > div > div.footer-col-right > div"))
+                .getText();
+        String[] CitySateCountry = actualAddress.substring(actualAddress.lastIndexOf(10)+1)
+                .replaceAll("[0-9]","").replaceAll("  ", ", ").split(", ");
+        String actualCity = CitySateCountry[0];
+        String actualState = CitySateCountry[1];
+        String actualCountry = CitySateCountry[2];
+        String actualZip = actualAddress.substring(actualAddress.lastIndexOf(10))
+                .replaceAll("[^0-9]","");
+        actualAddress = actualAddress.substring(actualAddress.indexOf("| ")+2, actualAddress.length());
+        String Address = actualAddress.substring(0, actualAddress.lastIndexOf(10));
+        String actualFullAddress = Address+" "+actualCity+", "+actualState+" "+actualZip+" "+actualCountry;
+        System.out.println(actualFullAddress);
+        System.out.println(expectedFullAddress);
+        if (actualFullAddress.contains(expectedFullAddress)) {
+            System.out.println(driver.getCurrentUrl() + " Test Passed! " + actualFullAddress);
+        } else {
+            System.out.println( driver.getCurrentUrl() + " Test Failed " + actualFullAddress);
+        }
+
+        driver.get(baseURL+"terms");
+        actualAddress = driver.findElement(By
+                .cssSelector("#post-303 > div > article > div > p:nth-child(35)"))
+                .getText();
+        listOfUSStateAbbreviations.put("AL","Alabama");
+        listOfUSStateAbbreviations.put("AK","Alaska");
+        listOfUSStateAbbreviations.put("AZ","Arizona");
+        listOfUSStateAbbreviations.put("AR","Arkansas");
+        listOfUSStateAbbreviations.put("CA","California");
+        listOfUSStateAbbreviations.put("CO","Colorado");
+        listOfUSStateAbbreviations.put("CT","Connecticut");
+        listOfUSStateAbbreviations.put("DE","Delaware");
+        listOfUSStateAbbreviations.put("DC","District of Columbia");
+        listOfUSStateAbbreviations.put("FL","Florida");
+        listOfUSStateAbbreviations.put("GA","Georgia");
+        listOfUSStateAbbreviations.put("HI","Hawaii");
+        listOfUSStateAbbreviations.put("ID","Idaho");
+        listOfUSStateAbbreviations.put("IL","Illinois");
+        listOfUSStateAbbreviations.put("IN","Indiana");
+        listOfUSStateAbbreviations.put("IA","Iowa");
+        listOfUSStateAbbreviations.put("KS","Kansas");
+        listOfUSStateAbbreviations.put("KY","Kentucky");
+        listOfUSStateAbbreviations.put("LA","Louisiana");
+        listOfUSStateAbbreviations.put("ME","Maine");
+        listOfUSStateAbbreviations.put("MD","Maryland");
+        listOfUSStateAbbreviations.put("MA","Massachusetts");
+        listOfUSStateAbbreviations.put("MI","Michigan");
+        listOfUSStateAbbreviations.put("MN","Minnesota");
+        listOfUSStateAbbreviations.put("MS","Mississippi");
+        listOfUSStateAbbreviations.put("MO","Missouri");
+        listOfUSStateAbbreviations.put("MT","Montana");
+        listOfUSStateAbbreviations.put("NE","Nebraska");
+        listOfUSStateAbbreviations.put("NV","Nevada");
+        listOfUSStateAbbreviations.put("NH","New Hampshire");
+        listOfUSStateAbbreviations.put("NJ","New Jersey");
+        listOfUSStateAbbreviations.put("NM","New Mexico");
+        listOfUSStateAbbreviations.put("NY","New York");
+        listOfUSStateAbbreviations.put("NC","North Carolina");
+        listOfUSStateAbbreviations.put("ND","North Dakota");
+        listOfUSStateAbbreviations.put("OH","Ohio");
+        listOfUSStateAbbreviations.put("OK","Oklahoma");
+        listOfUSStateAbbreviations.put("OR","Oregon");
+        listOfUSStateAbbreviations.put("PA","Pennsylvania");
+        listOfUSStateAbbreviations.put("RI","Rhode Island");
+        listOfUSStateAbbreviations.put("SC","South Carolina");
+        listOfUSStateAbbreviations.put("SD","South Dakota");
+        listOfUSStateAbbreviations.put("TN","Tennessee");
+        listOfUSStateAbbreviations.put("TX","Texas");
+        listOfUSStateAbbreviations.put("UT","Utah");
+        listOfUSStateAbbreviations.put("VT","Vermont");
+        listOfUSStateAbbreviations.put("VA","Virginia");
+        listOfUSStateAbbreviations.put("WA","Washington");
+        listOfUSStateAbbreviations.put("WV","West Virginia");
+        listOfUSStateAbbreviations.put("WI","Wisconsin");
+        listOfUSStateAbbreviations.put("WY","Wyoming");
+        listOfUSStateAbbreviations.put("AS","American Samoa");
+        listOfUSStateAbbreviations.put("GU","Guam");
+        listOfUSStateAbbreviations.put("MP","Northern Mariana Islands");
+        listOfUSStateAbbreviations.put("PR","Puerto Rico");
+        listOfUSStateAbbreviations.put("VI","U.S. Virgin Islands");
+        listOfUSStateAbbreviations.put("UM","U.S. Minor Outlying Islands");
+        listOfUSStateAbbreviations.put("FM","Micronesia");
+        listOfUSStateAbbreviations.put("MH","Marshall Islands");
+        listOfUSStateAbbreviations.put("PW","Palau");
+        actualFullAddress = actualCity+", "+listOfUSStateAbbreviations.get(actualState)+", "+actualCountry;
+        if (actualFullAddress.contains(expectedCity+", "+listOfUSStateAbbreviations.get(expectedState)+
+                ", "+expectedCountry)) {
+            System.out.println(driver.getCurrentUrl() + " Test Passed! " + expectedCity+", "+
+                    listOfUSStateAbbreviations.get(expectedState)+", "+expectedCountry);
+        } else {
+            System.out.println( driver.getCurrentUrl() + " Test Failed " + expectedCity+
+                    ", "+listOfUSStateAbbreviations.get(expectedState)+", "+expectedCountry);
+        }
+
+        driver.get(baseURL+"terms");
+        actualAddress = driver.findElement(By
+                .cssSelector("#post-303 > div > article > div > p:nth-child(28)"))
+                .getText();
+        if (("the"+actualAddress).contains(" the "+expectedCountry)) {
+            System.out.println(driver.getCurrentUrl() + " Test Passed! " + " the " + expectedCountry);
+        } else {
+            System.out.println( driver.getCurrentUrl() + " Test Failed " + " the " + expectedCountry);
+        }
     }
 }
